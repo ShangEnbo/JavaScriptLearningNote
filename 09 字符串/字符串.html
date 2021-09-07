@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字符串的学习</title>
+</head>
+<body>
+    
+    <script>
+        // 单引号双引号皆可
+        var str = 'Jojo';
+        var str = "Jojo";
+        // 使用索引位置访问字符
+        var character = str[3];
+        console.log(character);
+        // 内外引号不能相同
+        var sentence = "It is called 'Honey'";
+        console.log(sentence);
+        var sentence = 'It is called "Honey"';
+        console.log(sentence);
+        // 若相同需用转义字符 ' \ '
+        var sentence = 'It is called \'Honey\'';
+        console.log(sentence);
+        var sentence = "It is called \"Honey\"";
+        console.log(sentence);
+        // 字符串的长度 包括空格
+        var len =  sentence.length;
+        console.log(len);
+        
+    </script>
+</body>
+</html>

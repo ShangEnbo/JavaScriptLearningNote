@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点击事件的学习</title>
+</head>
+<body>
+    <h1>什么是事件？</h1>
+    <p>事件可以是浏览器行为，也可以是用户行为</p>
+    <p>HTML事件的实例：</p>
+    <ul>
+        <li>HTML 页面完成加载</li>
+        <li>HTML input字段改变</li>
+        <li>HTML 按钮被点击</li>
+    </ul>
+    <!-- 点击事件 -->
+    <!-- 1、内嵌js-->
+    <button onclick="getElementById('demo').innerHTML = Date()">现在的时间是</button>
+    <p id="demo"></p>
+    <!-- 2、修改自身属性 -->
+    <button onclick="this.innerHTML = Date()">现在的时间是</button>
+    <p></p>
+    <!-- 3、调用函数 -->
+    <button onclick="timeDisplay()">现在的时间是</button>
+    <script>
+        function timeDisplay() {
+            document.getElementById("time1").innerHTML = Date()
+        }
+    </script>
+    <p id="time1"></p>
+
+</body>
+</html>

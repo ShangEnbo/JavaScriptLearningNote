@@ -1,4 +1,4 @@
-var status;
+var status = false;
 var speed = 0;
 var car = {
     name:'Fiat',
@@ -9,6 +9,11 @@ var car = {
         status = true;
         speed = 1;
         console.log('start...');
+        console.log('car_name' + this.name);
+        console.log('car_model' + this.model);
+        console.log('car_weight' + this.weight);
+        console.log('car_color' + this.color);
+        console.log('status: '+ status);
         console.log('speed: ' + speed);
     },
     drive:function() {
@@ -16,6 +21,9 @@ var car = {
             ++speed;
             console.log('driving...');
             console.log('speed: ' + speed);
+        }
+        else {
+            console.log('please open start...');
         }
     },
     brake:function() {
@@ -27,6 +35,12 @@ var car = {
         if (speed == 0) {
             status = false;
             console.log('stop...');
+            console.log('status: '+ status);
+            console.log('speed: ' + speed);
         }
+        else {
+            console.log('please open brake...');
+        }
+
     }
 }

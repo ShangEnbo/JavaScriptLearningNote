@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数的学习</title>
+    <script>
+        // 创建一个函数名为 test 的函数
+        function test() {
+            alert("Hello World!");
+        }
+        // 带参数的函数
+        function parameter (par1, par2) {
+            alert("Welcome " + par1 + par2 + " come the page")
+        }
+    </script>
+</head>
+<body>
+    <!-- 在按钮上创建一个点击事件，来触发test()函数 -->
+    <button onclick="test()">点我</button>
+    <button onclick="parameter('shang', 'enbo')">点我</button>
+    <!-- 创建id名进行DOM操作 -->
+    <p id="return_value"></p>
+    <p id="compute_value"></p>
+
+    
+    <script>
+        // 带返回值的函数
+        function rev() {
+            var a = 5;
+            return a;
+        }
+        document.getElementById("return_value").innerHTML = rev();
+        // 含参的带返回值的函数
+        function comv(a, b) {
+            return a*b;
+        }
+        document.getElementById("compute_value").innerHTML = comv(5, 6);
+
+    </script>
+
+
+
+</body>
+</html>

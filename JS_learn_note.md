@@ -560,3 +560,258 @@ s.delete(4);
 console.log(s[0]);
 ```
 
+### 条件表达式
+
+条件表达式可以节省代码量
+
+```js
+var a = (age>18)?'成年'：'未成年'；
+// (条件)？结果1：结果2
+// 等价于
+if(age>18) {
+    a = '成年';
+}else{
+    a = '未成年';
+}
+```
+
+**案例：数字补’0‘**
+
+```js
+var num = prompt("请输入0·59的数字");
+var res = (num<10)?"0"+num:num;
+alert(res);
+```
+
+### Switch语句
+
+**案例1：查询水果**
+
+```js
+var fruit = prompt("请输入水果名称");
+switch(fruit){
+    case '苹果':
+    	alert('苹果的价格为3.5元/斤');
+        break;
+    case '香蕉':
+        alert('xxx');
+        break;
+    default:
+        alert('没有此水果');
+}
+```
+
+**案例2：判断时间阶段。比如用户输入12点弹出中午好用户输入18点弹出傍晚好用户输入23点弹出深夜好**
+
+```js
+var time = prompt("please input time");
+if(7<=time<12){
+    alert("上午好");
+}else if(time == 12) {
+    alert("中午好");
+}else if(12<time<18) {
+    alert("下午好"); 
+}else if(18<=time<23) {
+    alert("傍晚好");
+}else if(23<time<7) {
+    alert("深夜好");
+}
+```
+
+**案例3：比较两个数的最大值（用户依次输入2个值，最后弹出最大的那个值)**
+
+```js
+var num1 = prompt("first input number:");
+var num2 = prompt("second input number:");
+if(num1 < num2) {
+    alert(num2);
+}else {
+    alert(num1);
+}
+```
+
+**案例4：用户输入一个数，来判断是奇数还是偶数**
+
+```js
+var num = prompt("please input number:");
+
+// switch
+switch(num%2) {
+    case 0:
+        alert("even");
+        break;
+    default:
+        alert("odd");
+        break;
+}
+
+// 条件表达式 (最简单，代码量最少)
+var res = (num%2 == 0)?'even':'odd';
+alert(res);
+
+// if-else
+if (num % 2 ==0) {
+    alert('even');
+}else {
+    alert('odd');
+}
+```
+
+**案例5：根据用户输入的数值（数字1到数字7)，返回星期几**
+
+```js
+var num = prompt("please input number（1-7）");
+if(1<=num<=7) {
+    switch(num) {
+       case 1:
+            alert('星期一');
+            break;
+       case 2:
+            alert('星期二');
+            break;
+       case 3:
+            alert('星期三');
+            break;
+       case 4:
+            alert('星期四');
+            break;
+       case 5:
+            alert('星期五');
+            break;
+       case 6:
+            alert('星期六');
+            break;
+       case 7:
+            alert('星期日');
+            break;
+    }
+}
+```
+
+**案例6：接收班长口袋里的钱数?若大于等于2000，请大家吃西餐。若小于2000，大于等于1500，请大家吃抉餐。若小于1500，大于等于1000，请大家喝饮料。若小于1000，大于等于500，请大家吃棒棒糖。否则提醒班长下次把钱带够六**
+
+```js
+var money = prompt("monitor's bag have XX money?");
+if(money>=2000) {
+    alert('xican');
+}else if(1500<=money<2000) {
+    alert('kuaican');
+}else if(1000<=money<1500) {
+    alert('drinker');
+}else if(500<=moeny<1000) {
+	alert("candy");
+}else {
+    alert("next have more money");
+}
+```
+
+**案例7：分数转换给一个分数，判定等级。大于等于90 A，大于等于80小于90 B，大于等于70小于80 C，大于等于60小于70D，小于60E**
+
+```js
+var grade = prompt("please input your grade");
+if(grade>=90) {
+    alert('A');
+}else if(80<=grade<90) {
+    alert('B');
+}else if(70<=grade<80) {
+    alert('C');
+}else if(60<=grade<70) {
+	alert('D');
+}else {
+    alert('E');
+}
+```
+
+
+
+### Switch语句和if else if 语句的区别
+
+1. switch 通常处理case为确定值的情况，而if-else语句更加灵活，常用于范围判断
+
+2. switch 语句进行条件判断后直接执行到程序的条件语句，效率更高。而if-else语句有几种条件，就得判断多少次。
+
+3. 当分支比较少时，if-else 语句的执行效率比switch语句高
+
+4. 当分支比较多时，且为确定值时，switch语句的执行效率比较高，而且结构清晰。
+
+   **总结：判断范围，直接用if-else；有确定值的分支比较少用if-else，分支比较多用switch**
+
+   | 情况         | 子情况       | 使用方法    |
+   | ------------ | ------------ | ----------- |
+   | **判断范围** |              | **if-else** |
+   | **有确定值** | **分支较少** | **if-else** |
+   | **有确定值** | **分支较多** | **switch**  |
+
+
+
+### for 循环
+
+**案例：九九乘法表**
+
+```js
+var str = '';
+for(let i=1; i<=9; i++){
+	for(let j=1; j<=i;j++){
+        str += i+"×"+j+"="+i*j+"\t";
+    }
+    str += '\n';
+}
+console.log(str);
+```
+
+![image-20210910092718010](C:\Users\14460\AppData\Roaming\Typora\typora-user-images\image-20210910092718010.png)
+
+#### 循环案例：简易ATM机
+
+```js
+var money = 0;
+do {
+    var choice = prompt(
+        "请输入您要的操作：\n1.存钱\n2.取钱\n3.显示余额\n4.退出"
+    );
+    switch (choice) {
+        case "1":
+            storage();
+            break;
+        case "2":
+            get();
+            break;
+        case "3":
+            show();
+            break;
+        case "4":
+            break;
+        default:
+            alert("无此选项");
+            break;
+    }
+    if (choice == 4) {
+        exit();
+        break;
+    }
+} while (true);
+
+function storage() {
+    var add_money = prompt("请输入存钱数：");
+    money += Number(add_money);
+    show();
+}
+
+function get() {
+    var decrease_money = prompt("请输入取钱数：");
+    while(decrease_money > money){
+        decrease_money = prompt("余额不足，请重新输入");
+    }
+    money -= Number(decrease_money);
+    show();
+}
+
+function show() {
+    alert("你现有余额为：" + money);
+}
+
+function exit() {
+    alert("你正在退出！");
+}
+```
+

@@ -54,6 +54,7 @@ let num = 20;   //ReferenceError
 // 全局声明 不会成为window对象的属性，而var会
 let str = 'vote';
 console.log(str);
+
 console.log(window.str);  //undefined
 
 // for循环的let声明

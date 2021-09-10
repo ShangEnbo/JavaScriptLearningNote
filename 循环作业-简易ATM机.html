@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var money = 0;
+      do {
+        var choice = prompt(
+          "请输入您要的操作：\n1.存钱\n2.取钱\n3.显示余额\n4.退出"
+        );
+        switch (choice) {
+          case "1":
+            storage();
+            break;
+          case "2":
+            get();
+            break;
+          case "3":
+            show();
+            break;
+          case "4":
+            break;
+          default:
+            alert("无此选项");
+            break;
+        }
+        if (choice == 4) {
+          exit();
+          
+        }
+      } while (true);
+
+      function storage() {
+        var add_money = prompt("请输入存钱数：");
+        money += Number(add_money);
+        show();
+      }
+
+      function get() {
+        var decrease_money = prompt("请输入取钱数：");
+        while(decrease_money > money){
+            decrease_money = prompt("余额不足，请重新输入");
+        }
+        money -= Number(decrease_money);
+        show();
+      }
+
+      function show() {
+        alert("你现有余额为：" + money);
+      }
+      function exit() {
+        alert("你正在退出！");
+        document.write("拜拜！");
+        return 0;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function getRandom(min, max) {
+        return Math.floor(Math.random() * (max + min - 1) + min);
+      }
+      var num = getRandom(1, 50);
+      console.log(num);
+      // 任意次数
+      /*
+      while (true) {
+        var input = prompt("猜数字游戏（1-10）");
+        if (input > num) {
+          alert("大了");
+        } else if (input < num) {
+          alert("小了");
+        } else {
+          alert("正确");
+          break;
+        }
+      }*/
+      // 10次
+      var count = 0;
+      var a = 10;
+      var str = "";
+      while(a){
+        var input = prompt("猜数字游戏（1-50）\n" + str);
+        if (input > num) {
+          alert("大了");
+        } else if (input < num) {
+          alert("小了");
+        } else {
+          alert("正确");
+          break;
+        }
+        a--;
+        str = '你还有'+ a +'次机会';
+        console.log(a);
+      }
+      (a==0)?alert("Game Over"):'';
+    </script>
+  </body>
+</html>

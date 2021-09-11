@@ -93,7 +93,6 @@ function strReplace(str, char, otherChar) {
   return str;
 }
 
-pinyin.getFullchar()
 /*
 var str = '';
 for(let i=1; i<=9; i++){

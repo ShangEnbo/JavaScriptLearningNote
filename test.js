@@ -29,6 +29,7 @@ function arrUnique(arr) {
   }
   return new_arr;
 }
+
 // 字符串中相同字符的个数
 function strCount(str, content) {
   var count = 0;
@@ -50,7 +51,6 @@ function strIndex(str, content) {
   }
   return index_arr;
 }
-
 
 // 统计字符串中出现次数最多的字符
 function strMaxCountChars(str) {
@@ -84,6 +84,16 @@ function strMaxCountChars(str) {
   }
   return arrMax;
 }
+
+// 字符串中的某个字符的全部替换
+function strReplace(str, char, otherChar) {
+  while(str.indexOf(char) !== -1) {
+    str = str.replace(char,otherChar);
+  }
+  return str;
+}
+
+pinyin.getFullchar()
 /*
 var str = '';
 for(let i=1; i<=9; i++){

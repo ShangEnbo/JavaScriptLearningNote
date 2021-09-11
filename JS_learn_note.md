@@ -488,6 +488,24 @@ var arr = new Array()
 
 ##### 多维数组
 
+
+
+**迭代器**
+
+```
+var arr = [1,3,4,5];
+Array.form(arr.key());		// 返回一个只有数组索引的新数组
+Array.form(arr.value());	// 返回一个只有数组值的新数组
+Array.form(arr.entries());	// 返回一个索引/值对的新数组	[ [0,1], [1,3], [2,4], [3,5] ]
+
+for (const [idx, element] of arr.entries()) {
+	console.log(idx);
+    console.log(element);
+}
+```
+
+
+
 ### 2、对象
 
 对象时一种无序的集合数据类型，由若干键值对组成
@@ -825,7 +843,7 @@ continue 跳过本次循环，进入下次循环
 
 return 退出循环，还能返回return语句中的值，同时还可以结束当前函数体的代码
 
-### 函数内置的arguments
+### 函数内置的arguments 
 
 arguments是一个伪数组
 
@@ -838,3 +856,371 @@ arguments是一个伪数组
 proto原型函数
 
 只有函数才有arguments
+
+### JavaScript 预解析
+
+#### 变量预解析
+
+js引擎会把代码里面所有的 `var` 还有`funciton`提升到当前作用域的最前面
+
+代码执行 按照代码书写的顺序从上往下执行
+
+**变量提升**
+
+```js
+console.log(num);	// undefined
+var num = 10;
+```
+
+等价于
+
+```js
+var num;
+console.log(num);	// undefined
+num = 10;
+```
+
+**函数提升**
+
+命名函数 调用这个函数时在函数上面，或函数下面都可以调用
+
+```js
+// fn();
+
+funciton fn() {
+    console.log('funciton');
+}
+fn();	// 两者效果相同
+```
+
+函数表达式
+
+```js
+// fn1();	 报错 fn1 is not function;   变量提升
+var fn1 = function() {
+  console.log("函数表达式");
+};
+fn1();
+```
+
+等价于
+
+```js
+var fn1;
+fn1();	 报错 fn1 is not function;   变量提升
+fn1 = function() {
+  console.log("函数表达式");
+};
+fn1();
+```
+
+案例，集合声明
+
+```js
+function f1() {
+  var a=b=c=9;
+  console.log(a);	// 9
+  console.log(b);	// 9
+  console.log(c);	// 9
+}
+f1();
+console.log(c);	// 9
+console.log(b);	// 9
+console.log(a);	// a is not defined
+```
+
+等价于
+
+```js
+function f1() {
+  var a;
+  c=9;	// 全局变量
+  b=c;	// 全局变量
+  a=b;
+  // a=b=c=9;
+  console.log(a);
+  console.log(b);
+  console.log(c);
+}
+f1();
+console.log(c);
+console.log(b);
+console.log(a);
+```
+
+### 构造函数
+
+构造函数名字首字母要大写
+
+构造函数不需要return 就可以返回结果
+
+调用构造函数必须使用 new
+
+```js
+function Star(name, age, sex) {
+    this.name = name;
+    this.age = age;
+    this.sex = sex;
+    this.sing = function(sang) {
+        console.log(sang);
+    }
+}
+var ldh = new Star('刘德华',28,'MAN');
+ldh.sing('shang');
+```
+
+`new` **关键字的执行过程**
+
+1. new构造函数可以在内存中创建了一个空对象
+2. this 就会指向刚才创建的空对象
+3. 执行构造函数里面的代码 给这个空对象添加属性和方法
+4. 返回这个对象
+5. thisji'hui'zhi'xiang'gang'cai
+
+### For-in和For-of
+
+for-in 输出索引	数组=>0,1,2,3    对象=>name,age,sex
+
+for-of 输出值	按索引顺序输出值
+
+### 内置对象
+
+**Math**
+
+```js
+Math.PI
+Math.abs
+Math.floor
+Math.ceil
+Math.round
+Math.random
+Math.max
+Math.min
+...
+```
+
+**Date**
+
+日期对象是一个构造函数 必须new来调用
+
+```js
+var arr = new Date();
+console.log(arr);
+// 参数常用写法
+// 数字型
+var arr = new Date(2021, 5, 16);
+// 字符型
+var arr = new Date('2019-10-20 10:10:10');
+```
+
+格式日期 **年月日星期**
+
+```js
+var date = new Date();
+date.getFullYear();
+date.getMonth() + 1;	// Month : 0-11;
+date.getDate();
+date.getDay();	// Day: 星期日0-星期六6
+
+// 2021年9月11日 星期六
+var arr = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+var year = date.getFullYear();
+var month = date.getMonth() + 1;
+var date = date.getDate();
+var day = date.getDay();
+console.log('Today is' + year +'年' + month + '月' + date +'日 '+ arr[day]);
+```
+
+格式化 **时分秒**
+
+```js
+var date = new Date();
+date.getHours();
+date.getMinutes();
+date.gerSeconds();
+
+// 封装函数 返回时分秒 格式 01:01:01
+function getTime() {
+    var time = new Date();
+    var hour = time.gerHours();
+    var minute = time.getMinutes();
+    var second = time.gerSeconds();
+    hour < 10 ? '0'+ hour : hour;
+    minute < 10 ? '0'+ minute : minute;
+    second < 10 ? '0'+ second : second;
+    return hour + ':' + minute + ":" + second;
+}
+```
+
+**时间戳**
+
+时间戳（总毫秒数） 距离1970年1月1日过了多少毫秒
+
+```js
+var date = new Date();
+date.valueof();
+date.getTime();
+
+// 简单写法
+var date = +new Date();
+
+// H5新增
+Date.now();
+```
+
+**案例:倒计时**
+
+```js
+// 毫秒转换天、时、分、秒
+function countDown(time) {
+    var nowTime = +new Date();
+    var inputTime = + new Date(time);
+    var times = (inputTime - nowTime) / 1000;  // s
+    var day = parseInt(times / 60 / 60 / 24);
+    var hour = parseInt(times / 60 / 60 % 24);
+    var minute = parseInt(times / 60 % 60);
+    var second = parseInt(times % 60);
+    xx(day);
+    xx(hour);
+    xx(minute);
+    xx(second);
+    return day+'天'+hour+'时'+minute+'分'+second+'秒';
+}
+
+function xx(n) {
+    n = n < 10 ? '0' + n : n;
+	return n;
+}
+```
+
+**数组内置对象 `Array`**
+
+```js
+// 创建数组
+var arr = [];
+var arr = [1,2,3];
+var arr = new Array();
+var arr = new Array(3);		// length 3 
+var arr = new Array(2,3);	// length 2  [2,3]
+```
+
+```js
+// 判断数组 
+// instanceof 关键字
+var arr = [];
+console.log(arr instanceof Array);	// true
+// Array.isArray()	H5新增
+console.log(Array.isArray(arr));
+```
+
+```js
+// 添加、删除数组
+arr.push();		// 在后面添加	返回新的长度
+arr.unshift();	// 在前面添加	返回新的长度
+arr.pop();		// 在后面删除	返回删除的值
+arr.shift();	// 在前面删除	返回删除的值
+```
+
+```js
+// 数组排序
+arr.reverse();	// 翻转
+arr.sort()		// 排序（冒泡）
+arr.sort((a,b)=>return a-b); // 升序
+arr.sort((a,b)=>return b-a); // 降序
+```
+
+```js
+// 索引方法
+// 只返回第一个满足条件的索引号 找不到元素返回 -1
+// indexOf() 从前面查找
+arr.indexOf();		// 返回该数组元素的索引号，
+// lastIndexOf() 从后面查找
+arr.lastIndexOf();
+
+
+// 数组去重案例
+var arr = ['c','a','z','a','b','c','x','c','b'];
+function arrUnique(arr) {
+  var new_arr = [];
+  for(let i = 0; i < arr.length; i++){
+      if(new_arr.indexOf(arr[i]) === -1){
+          new_arr.push(arr[i]);
+      }
+  }
+  return new_arr;
+}
+console.log(arrUnique(arr));
+```
+
+```js
+// 数组转字符串
+arr.toString();
+arr.join('!');
+```
+
+```js
+// 数组连接	concat 返回一个新的数组
+var arr = [1,2,3];
+var arr1 = [3,4,5];
+arr.concat(arr1);
+arr.concat(arr1,arr,arr,arr1);
+// 数组截取	slice 返回一个新的数组
+// arr.slice(起点,终点）;
+arr.slice(3,5); // 超过最大索引值无影响
+// 数组删除 splice 返回删除的元素的数组
+// arr.splice(开始位置，删除个数);
+arr.splice(2,4);
+```
+
+**字符串的内置对象**
+
+```js
+var str = 'string';
+str.length; // ??为什么基本数据类型有length
+
+// str 基本包装类型，把简单数据类型包装成复杂数据类型
+var temp = new String('string');
+str = temp;
+temp = null;
+
+// 字符串的不可变性
+当我们新建一个字符串时，内存会开辟一个空间，放入字符串的值，而当我们改变字符串的值，会再开辟一个空间存放新的字符串的值，原有的还是存在内存中，虽然看上去改变了内容，但其实是地址变了，标识符重新指向，所以不要大量的拼接字符串
+```
+
+**字符串的不可变性 **  不要轻易尝试
+
+```js
+// 根据字符返回位置
+var str = "string";
+str.indexOf('r');
+str.indexOf('r',2); // 从索引号是2的位置开始往后查找
+// lastIndexOf 相反
+```
+
+**string工具类**
+
+```js
+var str = 'mike';
+str[index];
+// charAt 根据位置返回字符
+str.charAt(index);
+// charCodeAt 根据位置返回字符的ACSII值	判断用户按下了哪个键
+str.charCodeAt(index);
+// substr 
+str.substr(1,3);	// ike
+// replace	只会替换第一个字符
+str.replace('i','a')	// make
+// split 字符转数组，有规律
+str.split(',');
+```
+
+### 数据类型的内存分配
+
+**简单数据类型**
+
+存放在栈里面，存放的是值
+
+**复杂数据类型**
+
+首先在栈里面存放地址，十六进制表示，然后这个地址指向堆里面的数据，存放在堆里面
+

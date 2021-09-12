@@ -1224,3 +1224,138 @@ str.split(',');
 
 首先在栈里面存放地址，十六进制表示，然后这个地址指向堆里面的数据，存放在堆里面
 
+## 七、JavaScript DOM
+
+### 1、节点
+
+​	元素节点	文本节点	属性节点	
+
+### 2、获取元素
+
+​	3种方法可获取元素节点，分别通过ID、标签名、类名获取
+
+```js
+document.getElementId("id");
+document.getElementsByTagName('li');	// DOM优化: 
+document.getElementsByClassName('class');
+
+```
+
+### 3、获取和设置属性
+
+```js
+// object.getAttribute('attribute');
+// DOM优化: object.attribute;  pic.href
+
+var paras = document.getElementsByTagName('p');
+for (let i = 0; i < paras.length; i++) {
+	console.log(paras[i].getAttribute('title'));
+}
+
+// object.setAttribute('attribute','value');
+// DOM优化: object.attribute = value;
+
+var paras = document.getElementsByTagName('p');
+for (let i = 0; i < paras.length; i++) {
+    paras[i].setAttribute('title','brand new title text');
+	console.log(paras[i].getAttribute('title'));
+}
+```
+
+### 4、子节点 ChildNodes
+
+ChildNodes 返回是一个元素节点下全部子元素的**数组**，有 length 属性
+
+```js
+// element.childNodes
+
+document.getElementsByTagName('body')[0];	
+document.getElementsByTagName('body').length
+```
+
+### 5、节点类型 nodeType
+
+```js
+// node.nodeType
+
+var body_element = document.getElementsByTagName('body');
+body_element.nodeType;
+```
+
+nodeType 返回的并非是英文，而是**数字**
+
+nodeType属性总共有12个可取值，仅有3种具有实用价值
+
+```
+元素节点的nodeType 属性值为 1
+属性节点的nodeType 属性值为 2
+文本节点的nodeType 属性值为 3
+```
+
+### 6、节点值 nodeValue
+
+改变文本节点的值,返回一个字符串
+
+```js
+// node.nodevalue
+
+var text = 'new value';
+var description = document.getElementsByTagName('body');
+description.childNode[0].nodevalue = text;
+```
+
+### 7、firstChild 和 lastChild
+
+```
+node.childNode[0] === node.firstChild
+node.childNode[node.childNode.length - 1] === node.lastChild
+```
+
+### 8、DOM 事件
+
+| 鼠标事件    | 描述                               |
+| ----------- | ---------------------------------- |
+| onclick     | 当用户点击鼠标时                   |
+| onload      | 当网页已加载时（当用户进入页面时） |
+| onunload    | 当网页结束时（当用户离开页面时）   |
+| onchange    | 当用户更改内容，离开输入框触发     |
+| onmouseover | 当鼠标移动到元素上时               |
+| onmouseout  | 当鼠标移动到元素上时               |
+
+#### onload事件
+
+```js
+// single onload
+window.onloa=func;
+// more onload
+function addLoadEvent(func) {
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    }else {
+        window.onload = function() {
+            oldonload();
+            func();
+        }
+    }
+}
+```
+
+#### onclick事件
+
+```js
+// 嵌入式	单个添加
+<a href="" onclick=""></a>
+// 多个添加同类事件
+function prepareGallary() {
+    var gallery = document.getElementById('imagegallery');
+    var links = gallery.getElementsByTagName('a');
+    for (let i = 0; i < links.length; i++) {
+        links[i].onclick = function() {
+            uploadPic(this);
+            return false;
+        }
+    }
+}
+```
+

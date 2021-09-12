@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>uploadPic</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            color: #333;
+            background-color: #ccc;
+            margin: 1em 10%;
+        }
+        a {
+            text-decoration: none;
+            color: #888;
+            font-size: 20px;
+            font-weight: 800;
+        }
+        ul {
+            list-style: none;
+        }
+        ul li {
+            float: left;
+            /* width: 190px; */
+            text-align: center;
+            padding: 20px 10px 10px 0;
+        }
+        #description {
+            font-size: 20px;
+            padding: 20px 0;
+        }
+
+        ul li a img {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>图片库-javascript</h1>
+    <ul id="imagegallery">
+        <!-- 
+        <li><a href="images/car.jpeg" onclick="uploadPic(this); return false" title="this is a car">car</a></li>
+        <li><a href="images/leave.jpeg" onclick="uploadPic(this); return false" title="this is a leave">leave</a></li>
+        <li><a href="images/sea.jpeg" onclick="uploadPic(this); return false" title="this is a sea">sea</a></li>
+        <li><a href="images/universe.jpeg" onclick="uploadPic(this); return false" title="this is an universe">universe</a></li>
+        -->
+        <!-- 
+        <li><a href="images/car.jpeg" title="this is a car">car</a></li>
+        <li><a href="images/leave.jpeg" title="this is a leave">leave</a></li>
+        <li><a href="images/sea.jpeg" title="this is a sea">sea</a></li>
+        <li><a href="images/universe.jpeg"" title="this is an universe">universe</a></li> 
+        -->
+        <li>
+            <a href="images/car.jpeg" title="this is a car">
+                <img src="images/car.jpeg" alt="car">
+            </a>
+        </li>
+        <li><a href="images/leave.jpeg" title="this is a leave"><img src="images/leave.jpeg" alt="leave"></a></li>
+        <li><a href="images/sea.jpeg" title="this is a sea"><img src="images/sea.jpeg" alt="sea"></a></li>
+        <li><a href="images/universe.jpeg"" title="this is an universe"><img src="images/universe.jpeg" alt="universe"></a></li> 
+    </ul>
+    <img id="placeholder" src="images/index.jpeg" alt="My image gallery" style="width: 800px;border: solid 10px white;">
+    <p id="description">Choose an image.</p>
+    <script>
+        function uploadPic(whichPic) {
+            // 获取对象
+            var placeholder = document.getElementById('placeholder');
+            // 获取对象的href属性的值
+            var href = whichPic.href;
+            // 设置图片src的值
+            placeholder.src = href;
+            var text = whichPic.title;
+            var description = document.getElementById('description');
+            description.firstChild.nodeValue = text;
+            // 注意，链接要return false，否则会跳转
+            return true;
+        }
+        function countBodyChildren() {
+            var bodyElement = document.getElementsByTagName('body')[0];
+            alert(bodyElement.childNodes.length);
+        }
+        function prepareGallary() {
+            if(!document.getElementById) return false;
+            if(!document.getElementsByTagName) return false;
+            if(!document.getElementById('imagegallery')) return false;
+            var gallery = document.getElementById('imagegallery');
+            var links = gallery.getElementsByTagName('a');
+            for (let i = 0; i < links.length; i++) {
+                links[i].onclick = function() {
+                    // uploadPic(this);
+                    // return false;
+                    return !uploadPic(this)? true:false;
+                }
+            }
+        }
+        window.onload = prepareGallary;
+        // window.onload=countBodyChildren;
+
+        // 当有两个函数都想在页面加载时执行，如果逐一绑定到load事件上，他们当中将只有最后那个才会被实际执行
+        function addLoadEvent(func) {
+            var oldonload = window.onload;
+            if (typeof window.onload != 'function') {
+                window.onload = func;
+            }else {
+                window.onload = function() {
+                    oldonload();
+                    func();
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>

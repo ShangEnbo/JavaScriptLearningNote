@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="list">
+        <li class="item">第一个li</li>
+        <li class="item">第一个li</li>
+        <li class="item">第一个li</li>
+        <ul class="list">
+            <li class="item">我是ul的li</li>
+        </ul>
+    </ul>
+    <script>
+        function domTraverside() {
+            var ul_first = document.getElementById('list');
+            // console.dir(ul_first.children);
+            var i = 0;
+            for (; i<ul_first.children.length;i++) {
+                console.dir(ul_first.children[i]);
+                if (ul_first.children[i].nodeName == 'LI') {
+                    ul_first.children[i].className = ul_first.children[i].className + ' child';
+                }else if(ul_first.children[i].nodeName == 'UL') {
+                    ul_first.children[i].className = ul_first.children[i].className + ' parent';
+                }
+            }
+        }
+        window.onload = domTraverside;
+    </script>
+</body>
+</html>

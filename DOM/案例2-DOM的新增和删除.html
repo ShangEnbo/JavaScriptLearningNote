@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>新增一个元素</li>
+        <li>新增多个元素</li>
+        <li>删除一个元素</li>
+        <li>删除多个元素</li>
+    </ul>
+    
+    <script>
+        // 在body中新增一个元素h2
+        var h2 = document.createElement('h2');
+        var h2Text = document.createTextNode('这是一个h2标题');
+        h2.appendChild(h2Text);
+        document.body.appendChild(h2);
+        // 在ul中新增一个li
+        var li = document.createElement('li');
+        var liText = document.createTextNode('这是一个li');
+        li.appendChild(liText);
+        var libody = document.getElementsByTagName('li');
+        libody[0].appendChild(li);
+        // 在ul中新增多个li元素
+        var ul = document.createElement('ul');
+        document.body.appendChild(ul);
+        /*
+        for (let i = 1; i <=100; i++) {
+            var li = document.createElement('li');
+            ul.appendChild(li);
+            var liText = document.createTextNode(i);
+     
+            li.appendChild(liText);
+        }
+        */
+        // 使用fragment增加多个元素
+        var list = ['apple', 'banana', 'orange'];
+        var frag = document.createDocumentFragment();
+        for (let i = 0; i < list.length; i++) {
+            var li1 = document.createElement('li');
+            var liText1 = document.createTextNode(list[i]);
+            li1.appendChild(liText1);
+            frag.appendChild(li1);
+        }
+        ul.appendChild(frag);
+
+        // 在body中删除h2节点
+        // parentChild.removeChiled(nodeChild)
+        // document.body.removeChild(h2);
+        // var h2 = document.querySelector('h2');
+        // document.body.removeChild(h2);
+        // 在 ul 中删除前50个节点
+        /* 
+        for (let i = 0; i < 50; i++) {
+        ul.removeChild(ul.firstElementChild);
+        }
+        */ 
+       // 删除全部 li
+       var li = document.querySelectorAll('li');
+       for (let i = 0, len = lenli.length;i < len;i++) {
+        li[i].parentNode.removeChild(li[i]);
+       }
+    </script>
+</body>
+</html>

@@ -1238,7 +1238,8 @@ str.split(',');
 document.getElementId("id");
 document.getElementsByTagName('li');	// DOM优化: 
 document.getElementsByClassName('class');
-
+document.querySelector('CSS选择器字符串');
+document.querySelectorAll('CSS选择器字符串');
 ```
 
 ### 3、获取和设置属性
@@ -1290,6 +1291,7 @@ nodeType属性总共有12个可取值，仅有3种具有实用价值
 元素节点的nodeType 属性值为 1
 属性节点的nodeType 属性值为 2
 文本节点的nodeType 属性值为 3
+文档节点的nodeType 属性值为 9
 ```
 
 ### 6、节点值 nodeValue
@@ -1357,5 +1359,147 @@ function prepareGallary() {
         }
     }
 }
+```
+
+### 9、添加标记
+
+传统技术 document.write 和 innerHTML
+
+innerHTML 既可以读也可以写，
+
+```js
+document.write("<p>This is inserted</p>");
+docunment.getElementById('testdiv').innerHTML
+```
+
+**深入研究**
+
+**（1）createElement**
+
+```js
+document.createElement(nodeName);	// 创建元素
+document.createElement('p');	// 创建一个p元素
+```
+
+**（2）appendChild**  插入到父节点末尾
+
+```js
+// 创建一个元素后通过appendChild方法加到节点树上
+var para = document.createElement('p');	// 子节点
+var testdiv = document.getElementById('testdiv');	// 父节点
+testdiv.appendChild(para);
+```
+
+**（3）createTextNode**
+
+```js
+document.createTextNode(text);		// 创建文本节点
+var txt = document.createTextNode('Hello world!');
+para.appendChild(txt);
+```
+
+**（4）insertBefore**  在已有元素前插入一个新元素
+
+```js
+/*
+parentElement:父元素
+newElement: 新元素
+targetElement: 目标元素
+*/ 
+parentElement.insertBefore(newElement,targetElement)
+
+// 例如:我想在id名为gallery的元素前插入一个class名为description元素
+var gallery = document.getElementById('gallery');
+var description = document.getElementByClassName('description');
+gallery.parentNode.insertBefore(description,gallery);
+```
+
+DOM并没有提供在已有元素后插入一个新元素的方法
+
+```js
+function insertAfter(newElement,targetElement) {
+    var parent = targetElement.parentNode;
+    if (parent.lastChild == targetElement) {
+        parent.appendChild(newElement);
+    } else {
+		parent.insertBefore(newElement,targetElement.nextSibling);
+    }
+}
+```
+
+**querySelector**
+
+**querySelectorAll**
+
+### 10、修改样式
+
+修改style改变类名
+
+```js
+var id = document.getElementById('name');
+id.className = 'Name';
+```
+
+## 八、JavaScript BOM
+
+**BOM**: Browser Object Mode
+
+### 1、location
+
+提供了文档相关的信息，导航
+
+```js
+location.href = 'https://www.baidu.com';
+location.reload(true); // 参数为true时，会直接去服务器拉，不用缓存
+location.reload();
+```
+
+```js
+// https://ke.qq.com/course/list?mt=1001&st=2004
+
+location.pathname	// /course/list
+location.search		// ?mt=1001&st=2004
+location.protocol	// https:
+location.hostname	// ke.qq.com
+```
+
+### 2、navigator
+
+客户端的相关信息   
+
+**navigator.userAgent重点**
+
+```
+navigator.userAgent		// 浏览器的用户代理字符串	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36
+navigator.platform		// 浏览器所在系统平台	win32
+```
+
+### 3、history
+
+后退、前进按钮
+
+```
+history.length
+history.back()
+history.forword()
+history.go() // 1 -1
+```
+
+### 4、window
+
+**global** 全局作用域
+
+1. 变量  --> 全局变量 window对象的属性
+2. 函数 --> window对象的方法
+
+```
+window.alert()
+window.confirm('hello?') // 弹窗，有返回值 true false
+window.prompt() // 输入框，返回输入的字符串
+```
+
+```
+window.innerWidth
+可以通过这个方法来确认客户端显示的窗口宽度
 ```
 

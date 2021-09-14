@@ -84,7 +84,8 @@ function strMaxCountChars(str) {
   }
   return arrMax;
 }
-
+var a = strMaxCountChars('java')
+console.log(a);
 // 字符串中的某个字符的全部替换
 function strReplace(str, char, otherChar) {
   while(str.indexOf(char) !== -1) {
